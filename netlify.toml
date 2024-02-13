@@ -1,0 +1,7 @@
+[build]
+  publish = "coletordados/demos/main/"  # Especifique o caminho do diretório que você deseja publicar
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
