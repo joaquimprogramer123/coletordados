@@ -24,6 +24,15 @@
                 console.error('Erro ao acessar a câmera:', err);
             });
     }
+
+    // Solicitar permissão da câmera ao carregar a página
+    document.addEventListener('DOMContentLoaded', function() {
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            iniciarCamera();
+        } else {
+            console.error('getUserMedia não é suportado neste navegador.');
+        }
+    });
 </script>
 </head>
 <body>
@@ -31,9 +40,6 @@
   <video id="video" width="100%" height="auto" autoplay></video>
   <button onclick="capturarFoto()">Capturar Foto</button>
   <canvas id="canvas" style="display: none;"></canvas>
-  <script>
-    iniciarCamera();
-  </script>
 </body>
 </html>
 
