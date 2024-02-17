@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capturar Foto da Câmera Frontal</title>
+<script>
+  function capturarFoto() {
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+    
+    // Obter acesso à câmera frontal do dispositivo
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
+      .then(stream => {
+        video.srcObject = stream;
+        video.play();
+      })
+      .catch(error => {
+        console.error('Erro ao acessar a câmera: ', error);
+      });
+
+    // Capturar foto ao clicar no botão
+    document.getElementById('capture-btn').addEventListener('click', function() {
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    });
+  }
+</script>
+</head>
+<body>
+  <h1>Capturar Foto da Câmera Frontal</h1>
+  <video id="video" width="100%" height="auto" autoplay></video>
+  <button id="capture-btn" onclick="capturarFoto()">Capturar Foto</button>
+  <canvas id="canvas" style="display: none;"></canvas>
+</body>
+</html>
