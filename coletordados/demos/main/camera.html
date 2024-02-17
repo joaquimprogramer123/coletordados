@@ -5,21 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Capturar Foto da Câmera Frontal</title>
 <script>
-    async function iniciarCamera() {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
-            const videoElement = document.getElementById('video');
-            videoElement.srcObject = stream;
-        } catch (err) {
-            console.error('Erro ao acessar a câmera:', err);
-        }
-    }
-
-    async function capturarFoto() {
+    function capturarFoto() {
         const videoElement = document.getElementById('video');
         const canvas = document.getElementById('canvas');
         const context = canvas.getContext('2d');
         context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+    }
+
+    function iniciarCamera() {
+        const constraints = { audio: false, video: { facingMode: 'user' } };
+
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(function(stream) {
+                const videoElement = document.getElementById('video');
+                videoElement.srcObject = stream;
+            })
+            .catch(function(err) {
+                console.error('Erro ao acessar a câmera:', err);
+            });
     }
 </script>
 </head>
@@ -33,4 +36,5 @@
   </script>
 </body>
 </html>
+
 
